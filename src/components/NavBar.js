@@ -12,7 +12,7 @@ export default function NavBar() {
           <li>
             <Link to="/favorites">Favorite</Link>
           </li>
-          <li>Random</li>
+          <Link to="/random">Random</Link>
           <li>Other</li>
         </ul>
       </nav>

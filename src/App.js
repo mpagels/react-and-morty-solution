@@ -7,13 +7,32 @@ import Home from './pages/Home'
 import DetailedCharacter from './DetailedCharacter'
 
 function App() {
+  const [favoriteIDs, setFavoriteIDs] = useState([])
+
+  function addFavorite(id) {
+    setFavoriteIDs([...favoriteIDs, id])
+  }
+
+  function removeFavorite(id) {
+    const updatedFavoriteIDs = favoriteIDs.filter((favID) => favID !== id)
+    setFavoriteIDs(updatedFavoriteIDs)
+  }
   return (
     <div className="App">
       <Header />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="character/:id" element={<DetailedCharacter />} />
+          <Route
+            path="character/:id"
+            element={
+              <DetailedCharacter
+                favoriteIDs={favoriteIDs}
+                removeFavorite={removeFavorite}
+                addFavorite={addFavorite}
+              />
+            }
+          />
         </Routes>
       </main>
       <NavBar />

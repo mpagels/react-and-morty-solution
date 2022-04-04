@@ -19,6 +19,7 @@ ul {
 
 nav {
   height: 100%;
+  background-color: white;
 }
 
 nav > ul {

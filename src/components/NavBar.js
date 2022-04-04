@@ -8,7 +8,10 @@ export default function NavBar() {
           <li>
             <Link to="/">Homepage</Link>
           </li>
-          <li>Favorite</li>
+
+          <li>
+            <Link to="/favorites">Favorite</Link>
+          </li>
           <li>Random</li>
           <li>Other</li>
         </ul>

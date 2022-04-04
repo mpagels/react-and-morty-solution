@@ -3,6 +3,7 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 75px;
 }
 
 main {
@@ -25,9 +26,4 @@ nav > ul {
   display: flex;
   align-items: center;
   justify-content: space-around;
-}
-.App {
-  display: grid;
-  grid-template-rows: 75px auto 75px;
-  height: 100vh;
 }

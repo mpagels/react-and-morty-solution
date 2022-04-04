@@ -1,8 +1,10 @@
 import React from 'react'
+import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+
 export default function NavBar() {
   return (
-    <footer>
+    <FooterWrapper>
       <nav>
         <ul>
           <li>
@@ -16,6 +18,17 @@ export default function NavBar() {
           <li>Other</li>
         </ul>
       </nav>
-    </footer>
+    </FooterWrapper>
   )
 }
+
+const FooterWrapper = styled.footer`
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  & nav > ul {
+    display: flex;
+    justify-content: space-between;
+  }
+`

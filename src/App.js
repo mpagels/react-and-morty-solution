@@ -7,7 +7,9 @@ import Home from './pages/Home'
 import DetailedCharacter from './DetailedCharacter'
 
 function App() {
-  const [favoriteIDs, setFavoriteIDs] = useState([])
+  const [favoriteIDs, setFavoriteIDs] = useState(
+    JSON.parse(localStorage.getItem('favoriteIDs')) || []
+  )
 
   function addFavorite(id) {
     setFavoriteIDs([...favoriteIDs, id])
@@ -17,6 +19,11 @@ function App() {
     const updatedFavoriteIDs = favoriteIDs.filter((favID) => favID !== id)
     setFavoriteIDs(updatedFavoriteIDs)
   }
+
+  useEffect(() => {
+    localStorage.setItem('favoriteIDs', JSON.stringify(favoriteIDs))
+  }, [favoriteIDs])
+
   return (
     <div className="App">
       <Header />

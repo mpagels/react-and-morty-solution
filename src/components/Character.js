@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export default function Character({ character }) {
@@ -6,7 +7,9 @@ export default function Character({ character }) {
     <Wrapper>
       <img src={character.image} alt="rick-and-morty-character" />
       <h2>{character.name}</h2>
-      <button>show more</button>
+      <Link to={`/character/${character.id}`}>
+        <button>show more</button>
+      </Link>
     </Wrapper>
   )
 }

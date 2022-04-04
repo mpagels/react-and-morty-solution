@@ -1,14 +1,19 @@
 import React from 'react'
+import styled from 'styled-components'
 
-export default function Character() {
+export default function Character({ character }) {
   return (
-    <li>
-      <img
-        src="https://rickandmortyapi.com/api/character/avatar/2.jpeg"
-        alt="rick-and-morty-character"
-      />
-      <h2>Morty Smith</h2>
+    <Wrapper>
+      <img src={character.image} alt="rick-and-morty-character" />
+      <h2>{character.name}</h2>
       <button>show more</button>
-    </li>
+    </Wrapper>
   )
 }
+
+const Wrapper = styled.li`
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`

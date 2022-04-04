@@ -32,24 +32,26 @@ export default function DetailedCharacter({
   console.log(id)
   return (
     <List>
-      <FavButton
-        onClick={toggleFavorites}
-        isFavorite={favoriteIDs.includes(id)}
-      >
-        Save as favorite
-      </FavButton>
-      <img src={character.image} alt="character-pic" />
-      <h2>{character.name}</h2>
-      <button onClick={toggle}>show more</button>
-      {isOpen ? (
-        <ul>
-          <li>species: {character.species}</li>
-          <li>gender: {character.gender}</li>
-          <li>status: {character.status}</li>
-        </ul>
-      ) : (
-        ''
-      )}
+      <li>
+        <FavButton
+          onClick={toggleFavorites}
+          isFavorite={favoriteIDs.includes(id)}
+        >
+          Save as favorite
+        </FavButton>
+        <img src={character.image} alt="character-pic" />
+        <h2>{character.name}</h2>
+        <button onClick={toggle}>show more</button>
+        {isOpen ? (
+          <ul>
+            <li>species: {character.species}</li>
+            <li>gender: {character.gender}</li>
+            <li>status: {character.status}</li>
+          </ul>
+        ) : (
+          ''
+        )}
+      </li>
     </List>
   )
 }

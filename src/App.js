@@ -12,13 +12,12 @@ function App() {
   const [favoriteIDs, setFavoriteIDs] = useState(
     JSON.parse(localStorage.getItem('favoriteIDs')) || []
   )
-  console.log('hello')
+
   function addFavorite(id) {
     setFavoriteIDs([...favoriteIDs, id])
   }
-  console.log(favoriteIDs)
+
   function removeFavorite(id) {
-    console.log('this', id)
     const updatedFavoriteIDs = favoriteIDs.filter((favID) => favID !== id)
     setFavoriteIDs(updatedFavoriteIDs)
   }

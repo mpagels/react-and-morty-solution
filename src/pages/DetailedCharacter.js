@@ -29,7 +29,6 @@ export default function DetailedCharacter({
     )
   }, [])
 
-  console.log(id)
   return (
     <List>
       <li>

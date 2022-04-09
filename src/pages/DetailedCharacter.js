@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import useStore, {
+  getAddFavorite,
+  getFavorites,
+  getRemoveFavorite,
+} from '../store/store'
 
-export default function DetailedCharacter({
-  favoriteIDs,
-  removeFavorite,
-  addFavorite,
-}) {
+export default function DetailedCharacter() {
   const { id } = useParams()
+
+  const removeFavorite = useStore(getRemoveFavorite)
+  const favorites = useStore(getFavorites)
+  const addFavorite = useStore(getAddFavorite)
+
   const [character, setCharacter] = useState({})
   const [isOpen, setIsOpen] = useState(false)
-
+  console.log('hi')
   const toggleFavorites = () => {
-    if (favoriteIDs.includes(id)) {
+    if (favorites.includes(id)) {
       removeFavorite(id)
     } else {
       addFavorite(id)
@@ -29,14 +35,12 @@ export default function DetailedCharacter({
     )
   }, [])
 
+  const isFavorite = favorites.includes(character?.id?.toString())
   return (
     <List>
       <li>
-        <FavButton
-          onClick={toggleFavorites}
-          isFavorite={favoriteIDs.includes(id)}
-        >
-          Save as favorite
+        <FavButton onClick={toggleFavorites} isFavorite={isFavorite}>
+          {isFavorite ? 'Remove as favorite' : 'Save as favorite'}
         </FavButton>
         <img src={character.image} alt="character-pic" />
         <h2>{character.name}</h2>

@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
+import useStore, { getFavorites, getRemoveFavorite } from '../store/store'
 
-export default function Favorites({ favoriteIDs, removeFavorite }) {
+export default function Favorites() {
   const [characters, setCharacters] = useState([])
 
+  const removeFavorite = useStore(getRemoveFavorite)
+  const favorites = useStore(getFavorites)
+
   useEffect(() => {
-    const fetches = favoriteIDs.map((ids) =>
+    const fetches = favorites.map((ids) =>
       fetch('https://rickandmortyapi.com/api/character/' + ids).then(
         (response) => response.json()
       )
     )
     Promise.all(fetches).then((data) => setCharacters(data))
-  }, [favoriteIDs])
+  }, [favorites])
 
   return (
     <List>

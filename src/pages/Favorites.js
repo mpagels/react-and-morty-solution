@@ -5,12 +5,13 @@ export default function Favorites({ favoriteIDs, removeFavorite }) {
   const [characters, setCharacters] = useState([])
 
   useEffect(() => {
-    const fetches = favoriteIDs.map((ids) =>
-      fetch('https://rickandmortyapi.com/api/character/' + ids).then(
-        (response) => response.json()
-      )
-    )
-    Promise.all(fetches).then((data) => setCharacters(data))
+    if (favoriteIDs.length === 0) {
+      setCharacters([])
+    } else {
+      fetch(`https://rickandmortyapi.com/api/character/[${favoriteIDs.join()}]`)
+        .then((response) => response.json())
+        .then((characters) => setCharacters(characters))
+    }
   }, [favoriteIDs])
 
   return (

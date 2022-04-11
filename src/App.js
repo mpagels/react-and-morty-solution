@@ -10,7 +10,7 @@ import RandomCharacter from './pages/RandomCharacter'
 
 function App() {
   const [favoriteIDs, setFavoriteIDs] = useState(
-    JSON.parse(localStorage.getItem('favoriteIDs')) || []
+    () => JSON.parse(localStorage.getItem('favoriteIDs')) || []
   )
 
   function addFavorite(id) {

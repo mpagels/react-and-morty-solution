@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-export default function Favorites({ favoriteIDs, removeFavorite }) {
+export default function Favorites({ favoriteIDs, toggleFavorite }) {
   const [characters, setCharacters] = useState([])
 
   useEffect(() => {
-    const fetches = favoriteIDs.map((ids) =>
-      fetch('https://rickandmortyapi.com/api/character/' + ids).then(
-        (response) => response.json()
-      )
-    )
-    Promise.all(fetches).then((data) => setCharacters(data))
+    if (favoriteIDs.length === 0) {
+      setCharacters([])
+    } else {
+      fetch(`https://rickandmortyapi.com/api/character/[${favoriteIDs.join()}]`)
+        .then((response) => response.json())
+        .then((characters) => setCharacters(characters))
+    }
   }, [favoriteIDs])
 
   return (
@@ -18,7 +19,7 @@ export default function Favorites({ favoriteIDs, removeFavorite }) {
       {characters?.map((character) => (
         <li key={character.id}>
           <FavButton
-            onClick={() => removeFavorite(character.id.toString())}
+            onClick={() => toggleFavorite(character.id.toString())}
             isFavorite={true}
           >
             Remove as favorite

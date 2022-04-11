@@ -2,22 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-export default function DetailedCharacter({
-  favoriteIDs,
-  removeFavorite,
-  addFavorite,
-}) {
+export default function DetailedCharacter({ favoriteIDs, toggleFavorite }) {
   const { id } = useParams()
   const [character, setCharacter] = useState({})
   const [isOpen, setIsOpen] = useState(false)
-
-  const toggleFavorites = () => {
-    if (favoriteIDs.includes(id)) {
-      removeFavorite(id)
-    } else {
-      addFavorite(id)
-    }
-  }
 
   const toggle = () => {
     setIsOpen(!isOpen)
@@ -33,7 +21,7 @@ export default function DetailedCharacter({
     <List>
       <li>
         <FavButton
-          onClick={toggleFavorites}
+          onClick={() => toggleFavorite(id)}
           isFavorite={favoriteIDs.includes(id)}
         >
           Save as favorite

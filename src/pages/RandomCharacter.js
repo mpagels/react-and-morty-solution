@@ -1,18 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import Character from '../components/Character'
+import { useLazyQuery } from '@apollo/client'
+import { CHARACTER } from '../queries/queries'
 
 const MAX = 826
 
 export default function RandomCharacter() {
-  const [character, setCharacter] = useState(null)
+  const [getCharacter, { loading, error, data, previousData }] =
+    useLazyQuery(CHARACTER)
 
   function getRandomCharacter() {
     const randomID = Math.floor(Math.random() * MAX)
-    fetch('https://rickandmortyapi.com/api/character/' + randomID)
-      .then((response) => response.json())
-      .then((data) => setCharacter(data))
+    getCharacter({
+      variables: { id: randomID },
+      nextFetchPolicy: 'cache-first',
+    })
   }
+
+  if (error)
+    return (
+      <ul>
+        <li>Error :(</li>
+      </ul>
+    )
+
+  const { character } = data || previousData || []
+
   return (
     <Wrapper>
       {character ? (

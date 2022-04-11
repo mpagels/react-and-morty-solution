@@ -1,22 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import { useQuery } from '@apollo/client'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
+import { CHARACTER } from '../queries/queries'
 
 export default function DetailedCharacter({ favoriteIDs, toggleFavorite }) {
   const { id } = useParams()
-  const [character, setCharacter] = useState({})
   const [isOpen, setIsOpen] = useState(false)
+
+  const { loading, error, data } = useQuery(CHARACTER, {
+    variables: { id },
+  })
 
   const toggle = () => {
     setIsOpen(!isOpen)
   }
 
-  useEffect(() => {
-    fetch('https://rickandmortyapi.com/api/character/' + id).then((response) =>
-      response.json().then((data) => setCharacter(data))
+  if (error)
+    return (
+      <ul>
+        <li>Error :(</li>
+      </ul>
     )
-  }, [])
-
+  if (loading) return null
+  const { character } = data
   return (
     <List>
       <li>

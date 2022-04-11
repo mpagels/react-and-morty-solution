@@ -1,18 +1,33 @@
-import React, { useEffect, useState } from 'react'
+import { useLazyQuery } from '@apollo/client'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
+import { CHARACTERS_BY_ID } from '../queries/queries'
 
 export default function Favorites({ favoriteIDs, toggleFavorite }) {
-  const [characters, setCharacters] = useState([])
+  const [getCharactersByID, { loading, error, data, previousData }] =
+    useLazyQuery(CHARACTERS_BY_ID)
 
   useEffect(() => {
-    if (favoriteIDs.length === 0) {
-      setCharacters([])
-    } else {
-      fetch(`https://rickandmortyapi.com/api/character/[${favoriteIDs.join()}]`)
-        .then((response) => response.json())
-        .then((characters) => setCharacters(characters))
+    if (favoriteIDs.length !== 0) {
+      getCharactersByID({
+        variables: { ids: favoriteIDs },
+        nextFetchPolicy: 'cache-first',
+      })
     }
-  }, [favoriteIDs])
+  }, [favoriteIDs, getCharactersByID])
+
+  if (error)
+    return (
+      <ul>
+        <li>Error :(</li>
+      </ul>
+    )
+
+  const { charactersByIds: characters } = data || previousData || []
+
+  if (favoriteIDs.length === 0) {
+    return null
+  }
 
   return (
     <List>

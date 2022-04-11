@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import { useQuery } from '@apollo/client'
+import React from 'react'
 import Character from '../components/Character'
+import { ALL_CHARACTERS } from '../queries/queries'
 
 export default function Home() {
-  const [characters, setCharacters] = useState([])
+  const { loading, error, data } = useQuery(ALL_CHARACTERS)
 
-  useEffect(() => {
-    fetch('https://rickandmortyapi.com/api/character')
-      .then((reponse) => reponse.json())
-      .then((data) => setCharacters(data.results))
-  }, [])
+  if (error)
+    return (
+      <ul>
+        <li>Error :(</li>
+      </ul>
+    )
 
   return (
     <ul>
-      {characters?.map((character) => (
+      {data?.characters.results?.map((character) => (
         <Character key={character.id} character={character} />
       ))}
     </ul>

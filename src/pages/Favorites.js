@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-export default function Favorites({ favoriteIDs, removeFavorite }) {
+export default function Favorites({ favoriteIDs, toggleFavorite }) {
   const [characters, setCharacters] = useState([])
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Favorites({ favoriteIDs, removeFavorite }) {
       {characters?.map((character) => (
         <li key={character.id}>
           <FavButton
-            onClick={() => removeFavorite(character.id.toString())}
+            onClick={() => toggleFavorite(character.id.toString())}
             isFavorite={true}
           >
             Remove as favorite

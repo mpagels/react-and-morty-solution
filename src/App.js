@@ -13,13 +13,13 @@ function App() {
     () => JSON.parse(localStorage.getItem('favoriteIDs')) || []
   )
 
-  function addFavorite(id) {
-    setFavoriteIDs([...favoriteIDs, id])
-  }
-
-  function removeFavorite(id) {
-    const updatedFavoriteIDs = favoriteIDs.filter((favID) => favID !== id)
-    setFavoriteIDs(updatedFavoriteIDs)
+  function toggleFavorite(id) {
+    if (favoriteIDs.includes(id)) {
+      const updatedFavoriteIDs = favoriteIDs.filter((favID) => favID !== id)
+      setFavoriteIDs(updatedFavoriteIDs)
+    } else {
+      setFavoriteIDs([...favoriteIDs, id])
+    }
   }
 
   useEffect(() => {
@@ -37,8 +37,7 @@ function App() {
             element={
               <DetailedCharacter
                 favoriteIDs={favoriteIDs}
-                removeFavorite={removeFavorite}
-                addFavorite={addFavorite}
+                toggleFavorite={toggleFavorite}
               />
             }
           />
@@ -46,7 +45,7 @@ function App() {
             path="favorites"
             element={
               <Favorites
-                removeFavorite={removeFavorite}
+                toggleFavorite={toggleFavorite}
                 favoriteIDs={favoriteIDs}
               />
             }
